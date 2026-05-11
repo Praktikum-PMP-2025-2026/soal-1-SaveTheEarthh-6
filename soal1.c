@@ -23,16 +23,21 @@ int max (int *list, int N){
     return hasil;
 }
 
-int iso (int *list, int N){
+int iso (int *list, int N, int *hasil){
+    int tambah = -1;
     for (int i = 0; i < N; i++)
     {
-        if(list[i] == 0) return i;
+        if(list[i] == 0) {
+            tambah ++;
+            hasil[tambah] = i;
+        }
     }
+    return tambah;
 }
 
 int main(){
     int N; scanf("%d", &N);
-    int matrix[N][N];
+    int matrix[N][N]; int isolated_list[N];
     int jml[N]; int buff;
     for (int i = 0; i < N; i++)
     {
@@ -58,8 +63,16 @@ int main(){
     }
     int maksimum = max(jml, N);
     printf("MAX_VERTEX %d\n", maksimum);
-    int isolated = iso(jml, N);
-    printf("ISOLATED %d", isolated);
+    int isolated = iso(jml, N, isolated_list);
+    printf("ISOLATED ");
+    if (isolated!=-1)
+    {   
+        for (int i = 0; i < isolated+1; i++)
+        {
+            printf("%d ", isolated_list[i]);
+        }
+    }
+    else printf("NONE");
     
     return 0;
 }
